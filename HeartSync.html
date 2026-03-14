@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HeartSync Bridge</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f0f0f0;
+      text-align: center;
+      color: #333;
+    }
+    .container {
+      max-width: 400px;
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    a.button {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 24px;
+      background-color: #007bff;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: background 0.3s;
+    }
+    a.button:hover { background-color: #0056b3; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Welcome to HeartSync 💜</h1>
+    <p>Redirecting to your app…</p>
+    <p>If the app is not installed, download the APK below:</p>
+    <a class="button" id="downloadApk" href="YOUR_APK_URL">Download APK</a>
+  </div>
+
+  <script>
+    // === إعدادات التطبيق ===
+    const appScheme = "heartsync://join"; // Custom Scheme من الـ Manifest
+    const appLink = "https://hurmvhtxiwfxrkkugeba.supabase.co/join"; // App Link من الـ Manifest
+    const apkDownload = "YOUR_APK_URL"; // رابط APK مباشر على GitHub أو أي استضافة
+
+    const now = Date.now();
+
+    // حاول فتح التطبيق باستخدام Custom Scheme
+    window.location = appScheme + window.location.search;
+
+    // بعد 1.5 ثانية، إذا لم يفتح التطبيق، يبقى المستخدم على صفحة التحميل
+    setTimeout(() => {
+      if (Date.now() - now < 1500) {
+        console.log("App not installed, showing download link");
+        // يمكنك إضافة أي رسالة إضافية هنا
+      }
+    }, 1500);
+
+    // زر تحميل APK يدويًا
+    document.getElementById("downloadApk").addEventListener("click", () => {
+      window.location = apkDownload;
+    });
+  </script>
+</body>
+</html>
