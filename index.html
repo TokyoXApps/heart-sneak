@@ -21,9 +21,21 @@
       padding: 30px;
       border-radius: 12px;
       box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      max-width: 400px;
     }
-    p {
-      margin: 10px 0;
+    .button {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 24px;
+      background-color: #007bff;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: background 0.3s;
+      cursor: pointer;
+    }
+    .button:hover {
+      background-color: #0056b3;
     }
   </style>
 </head>
@@ -31,26 +43,29 @@
   <div class="container">
     <h1>Welcome to HeartSync 💜</h1>
     <p>Trying to open your app…</p>
-    <p>If nothing happens, make sure HeartSync is installed.</p>
+    <p>If nothing happens automatically, click the button below:</p>
+    <div id="openAppBtn" class="button">Open HeartSync</div>
   </div>
 
   <script>
-    // رابط التطبيق من Custom Scheme
-    const appScheme = "heartsync://join";
-    // تمرير أي query parameters موجودة
+    const appScheme = "heartsync://join"; // Custom Scheme من AndroidManifest
     const urlWithParams = appScheme + window.location.search;
 
     const now = Date.now();
-    // محاولة فتح التطبيق مباشرة
+    // محاولة فتح التطبيق تلقائيًا
     window.location = urlWithParams;
 
-    // إذا التطبيق غير مثبت، يبقى المستخدم في الصفحة
+    // إذا لم يفتح التطبيق خلال 1.5 ثانية، يظهر الزر للمستخدم
     setTimeout(() => {
       if (Date.now() - now < 1500) {
-        console.log("App not installed or did not respond");
-        // هنا يمكنك إضافة رسالة إضافية أو زر لاحقًا
+        document.getElementById("openAppBtn").style.display = "block";
       }
     }, 1500);
+
+    // الزر يدويًا يحاول فتح التطبيق عند الضغط
+    document.getElementById("openAppBtn").addEventListener("click", () => {
+      window.location = urlWithParams;
+    });
   </script>
 </body>
 </html>
